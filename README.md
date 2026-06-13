@@ -19,3 +19,8 @@ Inclui:
 - Salvamento local no navegador
 
 Próxima etapa sugerida: Firebase para sincronizar notebook e celular.
+
+
+## v1.0.1
+
+Correção de navegação entre abas e compatibilidade do Dashboard.

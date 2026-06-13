@@ -3,6 +3,14 @@ const blank={settings:{name:"KingMiixin"},water:0,exercise:false,tasks:[],events
 let db=JSON.parse(localStorage.getItem(storeKey)||"null")||structuredClone(blank);
 let pomodoroSeconds=1500,pomodoroInterval=null;
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+function setText(selector, value){
+  const el = document.querySelector(selector);
+  if (el) el.textContent = value;
+}
+function setHTML(selector, value){
+  const el = document.querySelector(selector);
+  if (el) el.innerHTML = value;
+}
 const money=v=>(Number(v)||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const esc=t=>String(t??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
 const save=()=>localStorage.setItem(storeKey,JSON.stringify(db));
@@ -23,7 +31,7 @@ function renderHabits(){$("#waterCount").textContent=db.water||0;$("#exerciseSta
 function renderPomodoro(){$("#pomodoroTimer").textContent=`${String(Math.floor(pomodoroSeconds/60)).padStart(2,"0")}:${String(pomodoroSeconds%60).padStart(2,"0")}`}
 function startPomodoro(){if(pomodoroInterval)return;pomodoroInterval=setInterval(()=>{pomodoroSeconds--;renderPomodoro();if(pomodoroSeconds<=0){clearInterval(pomodoroInterval);pomodoroInterval=null;pomodoroSeconds=1500;renderPomodoro();alert("Pomodoro concluído! 🌊")}},1000)}
 function resetPomodoro(){clearInterval(pomodoroInterval);pomodoroInterval=null;pomodoroSeconds=1500;renderPomodoro()}
-function renderTasks(){let search=($("#taskSearch")?.value||"").toLowerCase(),filter=$("#taskFilter")?.value||"todas";let tasks=db.tasks.filter(t=>(filter==="todas"||t.status===filter)&&(`${t.title} ${t.category} ${t.description}`.toLowerCase().includes(search)));let cols={hoje:"#tasksHoje",andamento:"#tasksAndamento",concluida:"#tasksConcluida"};Object.values(cols).forEach(s=>$(s).innerHTML="");["hoje","andamento","concluida"].forEach(st=>{let arr=sortedByDate(tasks.filter(t=>t.status===st));$(cols[st]).innerHTML=arr.length?arr.map(t=>item({title:t.title,classes:t.status==="concluida"?"done":"",meta:[{txt:t.category},{txt:priorityText(t.priority),cls:"priority-"+t.priority},{txt:fmtDate(t.date)}],desc:t.description,actions:`${st!=="hoje"?`<button class="ghost-btn" onclick="setTask('${t.id}','hoje')">Hoje</button>`:""}${st!=="andamento"?`<button class="ghost-btn" onclick="setTask('${t.id}','andamento')">Em andamento</button>`:""}${st!=="concluida"?`<button class="primary-btn" onclick="setTask('${t.id}','concluida')">Concluir</button>`:""}<button class="danger-btn" onclick="delTask('${t.id}')">Excluir</button>`})).join(""):`<p class="empty">Nada por aqui ainda.</p>`});updateDashboard()}
+function renderTasks(){let search=($("#taskSearch")?.value||"").toLowerCase(),filter=$("#taskFilter")?.value||"todas";let tasks=db.tasks.filter(t=>(filter==="todas"||t.status===filter)&&(`${t.title} ${t.category} ${t.description}`.toLowerCase().includes(search)));let cols={hoje:"#tasksHoje",andamento:"#tasksAndamento",concluida:"#tasksConcluida"};Object.values(cols).forEach(s=>setHTML(s,""));["hoje","andamento","concluida"].forEach(st=>{let arr=sortedByDate(tasks.filter(t=>t.status===st));$(cols[st]).innerHTML=arr.length?arr.map(t=>item({title:t.title,classes:t.status==="concluida"?"done":"",meta:[{txt:t.category},{txt:priorityText(t.priority),cls:"priority-"+t.priority},{txt:fmtDate(t.date)}],desc:t.description,actions:`${st!=="hoje"?`<button class="ghost-btn" onclick="setTask('${t.id}','hoje')">Hoje</button>`:""}${st!=="andamento"?`<button class="ghost-btn" onclick="setTask('${t.id}','andamento')">Em andamento</button>`:""}${st!=="concluida"?`<button class="primary-btn" onclick="setTask('${t.id}','concluida')">Concluir</button>`:""}<button class="danger-btn" onclick="delTask('${t.id}')">Excluir</button>`})).join(""):`<p class="empty">Nada por aqui ainda.</p>`});updateDashboard()}
 window.setTask=(id,st)=>{let t=db.tasks.find(x=>x.id===id);if(t)t.status=st;save();renderTasks()}
 window.delTask=id=>{db.tasks=db.tasks.filter(x=>x.id!==id);save();renderTasks()}
 function renderEvents(){let search=($("#eventSearch")?.value||"").toLowerCase(),filter=$("#eventFilter")?.value||"todos";let events=db.events.filter(e=>(filter==="todos"||e.category===filter)&&(`${e.title} ${e.category} ${e.description}`.toLowerCase().includes(search))).sort((a,b)=>stamp(a.date,a.time)-stamp(b.date,b.time));$("#eventList").innerHTML=events.length?events.map(e=>item({title:e.title,classes:"event-"+e.color,meta:[{txt:e.category},{txt:`${fmtDate(e.date)} • ${e.time}`}],desc:e.description,actions:`<button class="danger-btn" onclick="delEvent('${e.id}')">Excluir</button>`})).join(""):`<p class="empty">Nenhum compromisso encontrado.</p>`;let upcoming=db.events.filter(e=>stamp(e.date,e.time)>=Date.now()).sort((a,b)=>stamp(a.date,a.time)-stamp(b.date,b.time));$("#eventSummaryCount").textContent=`${db.events.length} compromisso${db.events.length===1?"":"s"}`;$("#eventSummaryNext").textContent=upcoming[0]?`Próximo: ${upcoming[0].title} em ${fmtDate(upcoming[0].date)} • ${upcoming[0].time}`:"Nenhum próximo evento.";updateDashboard()}
@@ -39,7 +47,33 @@ function renderNotes(){let search=($("#noteSearch")?.value||"").toLowerCase(),fi
 window.delNote=id=>{db.notes=db.notes.filter(x=>x.id!==id);save();renderNotes()}
 function renderProjects(){$("#projectList").innerHTML=db.projects.length?db.projects.map(p=>item({title:p.name,meta:[{txt:p.status}],desc:p.description,actions:`<button class="danger-btn" onclick="delProject('${p.id}')">Excluir</button>`})).join(""):`<p class="empty">Nenhum projeto cadastrado.</p>`}
 window.delProject=id=>{db.projects=db.projects.filter(x=>x.id!==id);save();renderProjects()}
-function updateDashboard(){let task=sortedByDate(db.tasks.filter(t=>t.status!=="concluida"))[0];$("#dashTask").textContent=task?.title||"Nenhuma tarefa";$("#dashTaskMeta").textContent=task?`${task.category} • ${fmtDate(task.date)} • ${priorityText(task.priority)}`:"Cadastre uma tarefa.";let ev=db.events.filter(e=>stamp(e.date,e.time)>=Date.now()).sort((a,b)=>stamp(a.date,a.time)-stamp(b.date,b.time))[0];$("#dashEvent").textContent=ev?.title||"Nenhum compromisso";$("#dashEventMeta").textContent=ev?`${ev.category} • ${fmtDate(ev.date)} • ${ev.time}`:"Cadastre um evento.";let st=db.studies.filter(s=>s.status!=="concluido"&&stamp(s.date,s.time)>=Date.now()-86400000).sort((a,b)=>stamp(a.date,a.time)-stamp(b.date,b.time))[0];$("#dashStudy").textContent=st?`${st.subject}: ${st.title}`:"Nenhuma atividade";$("#dashStudyMeta").textContent=st?`${fmtDate(st.date)} ${st.time||""} • ${priorityText(st.priority)}`:"Cadastre uma atividade.";let f=financeTotals();$("#dashBalance").textContent=money(f.balance);$("#dashFinanceMeta").textContent=`Salário ${money(f.salary)} - fixos ${money(f.fixed)} - variáveis ${money(f.variables)}`}
+function updateDashboard(){
+  const task = sortedByDate(db.tasks.filter(t => t.status !== "concluida"))[0];
+  setText("#dashTask", task?.title || "Nenhuma tarefa");
+  setText("#dashTaskMeta", task ? `${task.category} • ${fmtDate(task.date)} • ${priorityText(task.priority)}` : "Cadastre uma tarefa.");
+
+  const ev = db.events
+    .filter(e => stamp(e.date, e.time) >= Date.now())
+    .sort((a,b) => stamp(a.date,a.time) - stamp(b.date,b.time))[0];
+  setText("#dashEvent", ev?.title || "Nenhum compromisso");
+  setText("#dashEventMeta", ev ? `${ev.category} • ${fmtDate(ev.date)} • ${ev.time}` : "Cadastre um evento.");
+
+  const st = db.studies
+    .filter(s => s.status !== "concluido" && stamp(s.date, s.time) >= Date.now() - 86400000)
+    .sort((a,b) => stamp(a.date,a.time) - stamp(b.date,b.time))[0];
+  setText("#dashStudy", st ? `${st.subject}: ${st.title}` : "Nenhuma atividade");
+  setText("#dashStudyMeta", st ? `${fmtDate(st.date)} ${st.time || ""} • ${priorityText(st.priority)}` : "Cadastre uma atividade.");
+
+  const f = financeTotals();
+  setText("#dashBalance", money(f.balance));
+  setText("#dashFinanceMeta", `Salário ${money(f.salary)} - fixos ${money(f.fixed)} - variáveis ${money(f.variables)}`);
+
+  // Compatibilidade com versões antigas do HTML, caso algum arquivo não tenha sido substituído no GitHub.
+  setText("#dashboardNextTaskTitle", task?.title || "Nenhuma tarefa");
+  setText("#dashboardNextTaskMeta", task ? `${task.category} • ${fmtDate(task.date)} • ${priorityText(task.priority)}` : "Cadastre uma tarefa.");
+  setText("#dashboardNextEventTitle", ev?.title || "Nenhum compromisso");
+  setText("#dashboardNextEventMeta", ev ? `${ev.category} • ${fmtDate(ev.date)} • ${ev.time}` : "Cadastre um evento.");
+}
 function backup(){let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="aqua-space-backup.json";a.click();URL.revokeObjectURL(a.href)}
 function importBackup(file){let r=new FileReader();r.onload=()=>{try{db=JSON.parse(r.result);save();location.reload()}catch{alert("Arquivo inválido.")}};r.readAsText(file)}
 function clearAll(){if(confirm("Tem certeza que quer apagar todos os dados locais do Aqua Space?")){localStorage.removeItem(storeKey);location.reload()}}
