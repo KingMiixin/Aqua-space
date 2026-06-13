@@ -2,23 +2,32 @@
 
 Um dashboard pessoal minimalista, produtivo e inspirado em uma estética oceânica.
 
-## v0.1.0
+## v0.2.0
 
-Primeira versão do Aqua Space.
+Sistema de tarefas implementado.
 
 ### Inclui
 
 - Menu lateral estilo Notion
-- Layout SPA: uma única página com seções dinâmicas
+- Layout SPA
 - Dashboard inicial
-- Cartões de tarefas, agenda, estudos e financeiro
 - Hábitos básicos: água e exercícios
 - Pomodoro simples
-- Design responsivo para notebook e celular
+- Sistema de tarefas com:
+  - Hoje
+  - Em andamento
+  - Concluídas
+  - Categoria
+  - Prioridade
+  - Data
+  - Descrição
+  - Pesquisa
+  - Filtro por status
+  - Integração com o Dashboard
+- Salvamento local via LocalStorage
 
 ## Próximas versões
 
-- v0.2: Tarefas
 - v0.3: Agenda
 - v0.4: Estudos
 - v0.5: Financeiro inteligente

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqua Space</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🌊</div>
+        <div>
+          <h1>Aqua Space</h1>
+          <p>Seu cantinho produtivo</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <button class="nav-item active" data-section="dashboard">🏠 <span>Dashboard</span></button>
+        <button class="nav-item" data-section="tarefas">✅ <span>Tarefas</span></button>
+        <button class="nav-item" data-section="agenda">📅 <span>Agenda</span></button>
+        <button class="nav-item" data-section="estudos">📚 <span>Estudos</span></button>
+        <button class="nav-item" data-section="financeiro">💰 <span>Financeiro</span></button>
+        <button class="nav-item" data-section="diario">📝 <span>Diário</span></button>
+        <button class="nav-item" data-section="projetos">⭐ <span>Projetos</span></button>
+        <button class="nav-item" data-section="configuracoes">⚙️ <span>Configurações</span></button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>v0.2.0</p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <div>
+          <h2 id="pageTitle">Dashboard</h2>
+          <p id="todayText"></p>
+        </div>
+      </header>
+
+      <section id="dashboard" class="page-section active">
+        <div class="hero-card">
+          <div>
+            <p class="eyebrow">Bem-vindo de volta</p>
+            <h2 id="greeting">Olá, KingMiixin 🩵</h2>
+            <p>Organize seu dia com calma, foco e energia oceânica.</p>
+          </div>
+          <div class="hero-bubble">✨</div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <p class="card-label">Próxima tarefa</p>
+            <h3 id="dashboardNextTaskTitle">Nenhuma tarefa cadastrada</h3>
+            <p id="dashboardNextTaskMeta">Crie uma tarefa para ela aparecer aqui.</p>
+          </article>
+
+          <article class="card">
+            <p class="card-label">Próximo compromisso</p>
+            <h3>Nenhum compromisso próximo</h3>
+            <p>Sua agenda geral aparecerá aqui.</p>
+          </article>
+
+          <article class="card highlight">
+            <p class="card-label">Próxima atividade de estudos</p>
+            <h3>Nenhuma atividade cadastrada</h3>
+            <p>O calendário de estudos terá destaque no dashboard.</p>
+          </article>
+
+          <article class="card">
+            <p class="card-label">Resumo financeiro</p>
+            <h3>R$ 0,00</h3>
+            <p>Saldo final previsto do mês.</p>
+          </article>
+
+          <article class="card habit-card">
+            <p class="card-label">Água</p>
+            <h3><span id="waterCount">0</span>/10 copos</h3>
+            <button class="primary-btn" id="addWater">+ Beber água</button>
+          </article>
+
+          <article class="card habit-card">
+            <p class="card-label">Exercícios</p>
+            <h3 id="exerciseStatus">Não realizado hoje</h3>
+            <button class="primary-btn" id="toggleExercise">Marcar como feito</button>
+          </article>
+
+          <article class="card pomodoro-card">
+            <p class="card-label">Pomodoro</p>
+            <h3 id="pomodoroTimer">25:00</h3>
+            <div class="button-row">
+              <button class="primary-btn" id="startPomodoro">Iniciar</button>
+              <button class="ghost-btn" id="resetPomodoro">Resetar</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="tarefas" class="page-section">
+        <div class="section-card">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">v0.2</p>
+              <h2>✅ Tarefas</h2>
+              <p>Organize por status, prioridade, categoria e data.</p>
+            </div>
+          </div>
+
+          <form id="taskForm" class="task-form">
+            <div class="form-group full">
+              <label for="taskTitle">Nome da tarefa</label>
+              <input id="taskTitle" type="text" placeholder="Ex: Estudar matemática" required />
+            </div>
+
+            <div class="form-group">
+              <label for="taskCategory">Categoria</label>
+              <select id="taskCategory">
+                <option>Estudos</option>
+                <option>Financeiro</option>
+                <option>Pessoal</option>
+                <option>Saúde</option>
+                <option>Projetos</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="taskPriority">Prioridade</label>
+              <select id="taskPriority">
+                <option value="alta">Alta</option>
+                <option value="media" selected>Média</option>
+                <option value="baixa">Baixa</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="taskStatus">Status</label>
+              <select id="taskStatus">
+                <option value="hoje" selected>Hoje</option>
+                <option value="andamento">Em andamento</option>
+                <option value="concluida">Concluída</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="taskDate">Data</label>
+              <input id="taskDate" type="date" />
+            </div>
+
+            <div class="form-group full">
+              <label for="taskDescription">Descrição opcional</label>
+              <textarea id="taskDescription" rows="3" placeholder="Detalhes, links, observações..."></textarea>
+            </div>
+
+            <button class="primary-btn full" type="submit">Adicionar tarefa</button>
+          </form>
+
+          <div class="task-tools">
+            <input id="taskSearch" type="search" placeholder="Pesquisar tarefa..." />
+            <select id="taskFilter">
+              <option value="todas">Todas</option>
+              <option value="hoje">Hoje</option>
+              <option value="andamento">Em andamento</option>
+              <option value="concluida">Concluídas</option>
+            </select>
+          </div>
+
+          <div class="task-board">
+            <div class="task-column">
+              <h3>Hoje</h3>
+              <div id="tasksHoje" class="task-list"></div>
+            </div>
+
+            <div class="task-column">
+              <h3>Em andamento</h3>
+              <div id="tasksAndamento" class="task-list"></div>
+            </div>
+
+            <div class="task-column">
+              <h3>Concluídas</h3>
+              <div id="tasksConcluida" class="task-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="agenda" class="page-section"><div class="section-card"><h2>📅 Agenda</h2><p>Área reservada para a v0.3.</p></div></section>
+      <section id="estudos" class="page-section"><div class="section-card"><h2>📚 Estudos</h2><p>Área reservada para a v0.4.</p></div></section>
+      <section id="financeiro" class="page-section"><div class="section-card"><h2>💰 Financeiro</h2><p>Área reservada para a v0.5: salário mensal, boletos, parcelas, gastos variáveis e saldo final automático.</p></div></section>
+      <section id="diario" class="page-section"><div class="section-card"><h2>📝 Diário</h2><p>Área reservada para a v0.6.</p></div></section>
+      <section id="projetos" class="page-section"><div class="section-card"><h2>⭐ Projetos</h2><p>Área reservada para a v0.8.</p></div></section>
+      <section id="configuracoes" class="page-section"><div class="section-card"><h2>⚙️ Configurações</h2><p>Área reservada para nome, tema, backup, Firebase e preferências do Aqua Space.</p></div></section>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
