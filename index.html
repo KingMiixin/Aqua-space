@@ -7,268 +7,153 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-icon">🌊</div>
-        <div>
-          <h1>Aqua Space</h1>
-          <p>Seu cantinho produtivo</p>
-        </div>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🌊</div>
+      <div><h1>Aqua Space</h1><p>Seu cantinho produtivo</p></div>
+    </div>
+    <nav class="nav-menu">
+      <button class="nav-item active" data-section="dashboard">🏠 <span>Dashboard</span></button>
+      <button class="nav-item" data-section="tarefas">✅ <span>Tarefas</span></button>
+      <button class="nav-item" data-section="agenda">📅 <span>Agenda</span></button>
+      <button class="nav-item" data-section="estudos">📚 <span>Estudos</span></button>
+      <button class="nav-item" data-section="financeiro">💰 <span>Financeiro</span></button>
+      <button class="nav-item" data-section="diario">📝 <span>Diário</span></button>
+      <button class="nav-item" data-section="projetos">⭐ <span>Projetos</span></button>
+      <button class="nav-item" data-section="configuracoes">⚙️ <span>Configurações</span></button>
+    </nav>
+    <div class="sidebar-footer"><p>v1.0 local</p></div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <div><h2 id="pageTitle">Dashboard</h2><p id="todayText"></p></div>
+    </header>
+
+    <section id="dashboard" class="page-section active">
+      <div class="hero-card">
+        <div><p class="eyebrow">Bem-vindo de volta</p><h2 id="greeting">Olá 🩵</h2><p>Organize seu dia com calma, foco e energia oceânica.</p></div>
+        <div class="hero-bubble">✨</div>
       </div>
-
-      <nav class="nav-menu" aria-label="Menu principal">
-        <button class="nav-item active" data-section="dashboard">🏠 <span>Dashboard</span></button>
-        <button class="nav-item" data-section="tarefas">✅ <span>Tarefas</span></button>
-        <button class="nav-item" data-section="agenda">📅 <span>Agenda</span></button>
-        <button class="nav-item" data-section="estudos">📚 <span>Estudos</span></button>
-        <button class="nav-item" data-section="financeiro">💰 <span>Financeiro</span></button>
-        <button class="nav-item" data-section="diario">📝 <span>Diário</span></button>
-        <button class="nav-item" data-section="projetos">⭐ <span>Projetos</span></button>
-        <button class="nav-item" data-section="configuracoes">⚙️ <span>Configurações</span></button>
-      </nav>
-
-      <div class="sidebar-footer">
-        <p>v0.3.0</p>
+      <div class="grid">
+        <article class="card"><p class="card-label">Próxima tarefa</p><h3 id="dashTask">Nenhuma tarefa</h3><p id="dashTaskMeta">Cadastre uma tarefa.</p></article>
+        <article class="card"><p class="card-label">Próximo compromisso</p><h3 id="dashEvent">Nenhum compromisso</h3><p id="dashEventMeta">Cadastre um evento.</p></article>
+        <article class="card highlight"><p class="card-label">Próxima atividade de estudos</p><h3 id="dashStudy">Nenhuma atividade</h3><p id="dashStudyMeta">Cadastre uma atividade.</p></article>
+        <article class="card"><p class="card-label">Resumo financeiro</p><h3 id="dashBalance">R$ 0,00</h3><p id="dashFinanceMeta">Saldo final previsto do mês.</p></article>
+        <article class="card"><p class="card-label">Água</p><h3><span id="waterCount">0</span>/10 copos</h3><button class="primary-btn" id="addWater">+ Beber água</button></article>
+        <article class="card"><p class="card-label">Exercícios</p><h3 id="exerciseStatus">Não realizado hoje</h3><button class="primary-btn" id="toggleExercise">Marcar como feito</button></article>
+        <article class="card"><p class="card-label">Pomodoro</p><h3 id="pomodoroTimer">25:00</h3><div class="button-row"><button class="primary-btn" id="startPomodoro">Iniciar</button><button class="ghost-btn" id="resetPomodoro">Resetar</button></div></article>
       </div>
-    </aside>
+    </section>
 
-    <main class="content">
-      <header class="topbar">
-        <button class="menu-toggle" id="menuToggle">☰</button>
-        <div>
-          <h2 id="pageTitle">Dashboard</h2>
-          <p id="todayText"></p>
+    <section id="tarefas" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Tarefas</p><h2>✅ Tarefas</h2><p>Organize por status, prioridade, categoria e data.</p></div>
+        <form id="taskForm" class="form-grid">
+          <div class="form-group full"><label>Nome da tarefa</label><input id="taskTitle" required placeholder="Ex: Estudar matemática"></div>
+          <div class="form-group"><label>Categoria</label><select id="taskCategory"><option>Estudos</option><option>Financeiro</option><option>Pessoal</option><option>Saúde</option><option>Projetos</option></select></div>
+          <div class="form-group"><label>Prioridade</label><select id="taskPriority"><option value="alta">Alta</option><option value="media" selected>Média</option><option value="baixa">Baixa</option></select></div>
+          <div class="form-group"><label>Status</label><select id="taskStatus"><option value="hoje">Hoje</option><option value="andamento">Em andamento</option><option value="concluida">Concluída</option></select></div>
+          <div class="form-group"><label>Data</label><input id="taskDate" type="date"></div>
+          <div class="form-group full"><label>Descrição</label><textarea id="taskDescription" rows="3"></textarea></div>
+          <button class="primary-btn full">Adicionar tarefa</button>
+        </form>
+        <div class="tools"><input id="taskSearch" type="search" placeholder="Pesquisar tarefa..."><select id="taskFilter"><option value="todas">Todas</option><option value="hoje">Hoje</option><option value="andamento">Em andamento</option><option value="concluida">Concluídas</option></select></div>
+        <div class="board three"><div class="column"><h3>Hoje</h3><div id="tasksHoje" class="list"></div></div><div class="column"><h3>Em andamento</h3><div id="tasksAndamento" class="list"></div></div><div class="column"><h3>Concluídas</h3><div id="tasksConcluida" class="list"></div></div></div>
+      </div>
+    </section>
+
+    <section id="agenda" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Agenda</p><h2>📅 Agenda</h2><p>Compromissos gerais com data e horário.</p></div>
+        <form id="eventForm" class="form-grid">
+          <div class="form-group full"><label>Título</label><input id="eventTitle" required placeholder="Ex: Consulta"></div>
+          <div class="form-group"><label>Categoria</label><select id="eventCategory"><option>Pessoal</option><option>Saúde</option><option>Estudos</option><option>Trabalho</option><option>Financeiro</option><option>Projetos</option></select></div>
+          <div class="form-group"><label>Data</label><input id="eventDate" type="date" required></div>
+          <div class="form-group"><label>Hora</label><input id="eventTime" type="time" required></div>
+          <div class="form-group"><label>Cor</label><select id="eventColor"><option value="aqua">Aqua</option><option value="gold">Dourado</option><option value="rose">Rosa</option><option value="violet">Violeta</option><option value="green">Verde</option></select></div>
+          <div class="form-group full"><label>Descrição</label><textarea id="eventDescription" rows="3"></textarea></div>
+          <button class="primary-btn full">Adicionar compromisso</button>
+        </form>
+        <div class="tools"><input id="eventSearch" type="search" placeholder="Pesquisar compromisso..."><select id="eventFilter"><option value="todos">Todos</option><option>Pessoal</option><option>Saúde</option><option>Estudos</option><option>Trabalho</option><option>Financeiro</option><option>Projetos</option></select></div>
+        <div class="layout-side"><div><h3>Próximos compromissos</h3><div id="eventList" class="list"></div></div><aside class="mini-panel"><p class="card-label">Resumo</p><h3 id="eventSummaryCount">0 compromissos</h3><p id="eventSummaryNext">Nenhum próximo evento.</p></aside></div>
+      </div>
+    </section>
+
+    <section id="estudos" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Estudos</p><h2>📚 Estudos</h2><p>Calendário exclusivo de estudos, atividades e anotações.</p></div>
+        <form id="studyForm" class="form-grid">
+          <div class="form-group"><label>Matéria</label><input id="studySubject" required placeholder="Ex: Matemática"></div>
+          <div class="form-group"><label>Atividade</label><input id="studyTitle" required placeholder="Ex: Lista de exercícios"></div>
+          <div class="form-group"><label>Data</label><input id="studyDate" type="date" required></div>
+          <div class="form-group"><label>Hora</label><input id="studyTime" type="time"></div>
+          <div class="form-group"><label>Prioridade</label><select id="studyPriority"><option value="alta">Alta</option><option value="media" selected>Média</option><option value="baixa">Baixa</option></select></div>
+          <div class="form-group full"><label>Observações</label><textarea id="studyNotes" rows="3" placeholder="Anotações para essa data..."></textarea></div>
+          <button class="primary-btn full">Adicionar estudo</button>
+        </form>
+        <div class="tools"><input id="studySearch" type="search" placeholder="Pesquisar matéria ou atividade..."><select id="studyFilter"><option value="todos">Todos</option><option value="pendente">Pendentes</option><option value="concluido">Concluídos</option></select></div>
+        <div id="studyList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="financeiro" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Financeiro</p><h2>💰 Financeiro inteligente</h2><p>Salário fixo, boletos/parcelas, variáveis, cartões e saldo final automático.</p></div>
+        <div class="finance-summary">
+          <div class="mini-panel"><p class="card-label">Salário mensal</p><h3 id="salaryView">R$ 0,00</h3></div>
+          <div class="mini-panel"><p class="card-label">Fixos do mês</p><h3 id="fixedView">R$ 0,00</h3></div>
+          <div class="mini-panel"><p class="card-label">Variáveis do mês</p><h3 id="variableView">R$ 0,00</h3></div>
+          <div class="mini-panel highlight-panel"><p class="card-label">Saldo final</p><h3 id="balanceView">R$ 0,00</h3></div>
         </div>
-      </header>
+        <form id="salaryForm" class="form-grid compact"><div class="form-group"><label>Salário mensal fixo</label><input id="salaryInput" type="number" step="0.01" placeholder="2500"></div><button class="primary-btn">Salvar salário</button></form>
+        <h3>Boletos / gastos fixos parcelados</h3>
+        <form id="fixedForm" class="form-grid">
+          <div class="form-group"><label>Nome</label><input id="fixedName" required placeholder="Ex: Celular"></div>
+          <div class="form-group"><label>Valor mensal</label><input id="fixedValue" type="number" step="0.01" required></div>
+          <div class="form-group"><label>Início</label><input id="fixedStart" type="month" required></div>
+          <div class="form-group"><label>Parcelas</label><input id="fixedInstallments" type="number" min="1" required placeholder="10"></div>
+          <button class="primary-btn full">Adicionar boleto/parcela</button>
+        </form>
+        <div id="fixedList" class="list"></div>
+        <h3>Gastos variáveis do mês</h3>
+        <form id="variableForm" class="form-grid">
+          <div class="form-group"><label>Nome</label><input id="variableName" required placeholder="Ex: Mercado"></div>
+          <div class="form-group"><label>Valor</label><input id="variableValue" type="number" step="0.01" required></div>
+          <div class="form-group"><label>Categoria</label><select id="variableCategory"><option>Mercado</option><option>Transporte</option><option>Lazer</option><option>Saúde</option><option>Outros</option></select></div>
+          <div class="form-group"><label>Data</label><input id="variableDate" type="date"></div>
+          <button class="primary-btn full">Adicionar gasto variável</button>
+        </form>
+        <div id="variableList" class="list"></div>
+      </div>
+    </section>
 
-      <section id="dashboard" class="page-section active">
-        <div class="hero-card">
-          <div>
-            <p class="eyebrow">Bem-vindo de volta</p>
-            <h2 id="greeting">Olá, KingMiixin 🩵</h2>
-            <p>Organize seu dia com calma, foco e energia oceânica.</p>
-          </div>
-          <div class="hero-bubble">✨</div>
+    <section id="diario" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Diário</p><h2>📝 Diário e anotações</h2><p>Registre seu dia, ideias e listas.</p></div>
+        <form id="noteForm" class="form-grid"><div class="form-group"><label>Título</label><input id="noteTitle" required></div><div class="form-group"><label>Categoria</label><select id="noteCategory"><option>Diário</option><option>Ideias</option><option>Lista de desejos</option><option>Importante</option></select></div><div class="form-group full"><label>Texto</label><textarea id="noteText" rows="6" required></textarea></div><button class="primary-btn full">Salvar anotação</button></form>
+        <div class="tools"><input id="noteSearch" type="search" placeholder="Pesquisar anotação..."><select id="noteFilter"><option value="todas">Todas</option><option>Diário</option><option>Ideias</option><option>Lista de desejos</option><option>Importante</option></select></div>
+        <div id="noteList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="projetos" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Projetos</p><h2>⭐ Projetos</h2><p>Organize RPGs, ideias, criações e metas futuras.</p></div>
+        <form id="projectForm" class="form-grid"><div class="form-group"><label>Nome</label><input id="projectName" required placeholder="Ex: RPG One Piece"></div><div class="form-group"><label>Status</label><select id="projectStatus"><option>Ideia</option><option>Em andamento</option><option>Pausado</option><option>Concluído</option></select></div><div class="form-group full"><label>Descrição</label><textarea id="projectDescription" rows="3"></textarea></div><button class="primary-btn full">Adicionar projeto</button></form>
+        <div id="projectList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="configuracoes" class="page-section">
+      <div class="section-card"><div class="section-header"><p class="eyebrow">Configurações</p><h2>⚙️ Configurações</h2><p>Personalização, backup e importação.</p></div>
+        <form id="settingsForm" class="form-grid compact"><div class="form-group"><label>Nome exibido</label><input id="displayName" placeholder="KingMiixin"></div><button class="primary-btn">Salvar nome</button></form>
+        <div class="button-row settings-buttons">
+          <button class="primary-btn" id="exportBackup">Exportar backup .json</button>
+          <label class="ghost-btn file-label">Importar backup <input id="importBackup" type="file" accept="application/json" hidden></label>
+          <button class="danger-btn" id="clearAll">Apagar tudo</button>
         </div>
-
-        <div class="grid">
-          <article class="card">
-            <p class="card-label">Próxima tarefa</p>
-            <h3 id="dashboardNextTaskTitle">Nenhuma tarefa cadastrada</h3>
-            <p id="dashboardNextTaskMeta">Crie uma tarefa para ela aparecer aqui.</p>
-          </article>
-
-          <article class="card">
-            <p class="card-label">Próximo compromisso</p>
-            <h3 id="dashboardNextEventTitle">Nenhum compromisso próximo</h3>
-            <p id="dashboardNextEventMeta">Sua agenda geral aparecerá aqui.</p>
-          </article>
-
-          <article class="card highlight">
-            <p class="card-label">Próxima atividade de estudos</p>
-            <h3>Nenhuma atividade cadastrada</h3>
-            <p>O calendário de estudos terá destaque no dashboard.</p>
-          </article>
-
-          <article class="card">
-            <p class="card-label">Resumo financeiro</p>
-            <h3>R$ 0,00</h3>
-            <p>Saldo final previsto do mês.</p>
-          </article>
-
-          <article class="card habit-card">
-            <p class="card-label">Água</p>
-            <h3><span id="waterCount">0</span>/10 copos</h3>
-            <button class="primary-btn" id="addWater">+ Beber água</button>
-          </article>
-
-          <article class="card habit-card">
-            <p class="card-label">Exercícios</p>
-            <h3 id="exerciseStatus">Não realizado hoje</h3>
-            <button class="primary-btn" id="toggleExercise">Marcar como feito</button>
-          </article>
-
-          <article class="card pomodoro-card">
-            <p class="card-label">Pomodoro</p>
-            <h3 id="pomodoroTimer">25:00</h3>
-            <div class="button-row">
-              <button class="primary-btn" id="startPomodoro">Iniciar</button>
-              <button class="ghost-btn" id="resetPomodoro">Resetar</button>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="tarefas" class="page-section">
-        <div class="section-card">
-          <div class="section-header">
-            <div>
-              <p class="eyebrow">v0.2</p>
-              <h2>✅ Tarefas</h2>
-              <p>Organize por status, prioridade, categoria e data.</p>
-            </div>
-          </div>
-
-          <form id="taskForm" class="task-form">
-            <div class="form-group full">
-              <label for="taskTitle">Nome da tarefa</label>
-              <input id="taskTitle" type="text" placeholder="Ex: Estudar matemática" required />
-            </div>
-
-            <div class="form-group">
-              <label for="taskCategory">Categoria</label>
-              <select id="taskCategory">
-                <option>Estudos</option>
-                <option>Financeiro</option>
-                <option>Pessoal</option>
-                <option>Saúde</option>
-                <option>Projetos</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="taskPriority">Prioridade</label>
-              <select id="taskPriority">
-                <option value="alta">Alta</option>
-                <option value="media" selected>Média</option>
-                <option value="baixa">Baixa</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="taskStatus">Status</label>
-              <select id="taskStatus">
-                <option value="hoje" selected>Hoje</option>
-                <option value="andamento">Em andamento</option>
-                <option value="concluida">Concluída</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="taskDate">Data</label>
-              <input id="taskDate" type="date" />
-            </div>
-
-            <div class="form-group full">
-              <label for="taskDescription">Descrição opcional</label>
-              <textarea id="taskDescription" rows="3" placeholder="Detalhes, links, observações..."></textarea>
-            </div>
-
-            <button class="primary-btn full" type="submit">Adicionar tarefa</button>
-          </form>
-
-          <div class="task-tools">
-            <input id="taskSearch" type="search" placeholder="Pesquisar tarefa..." />
-            <select id="taskFilter">
-              <option value="todas">Todas</option>
-              <option value="hoje">Hoje</option>
-              <option value="andamento">Em andamento</option>
-              <option value="concluida">Concluídas</option>
-            </select>
-          </div>
-
-          <div class="task-board">
-            <div class="task-column"><h3>Hoje</h3><div id="tasksHoje" class="task-list"></div></div>
-            <div class="task-column"><h3>Em andamento</h3><div id="tasksAndamento" class="task-list"></div></div>
-            <div class="task-column"><h3>Concluídas</h3><div id="tasksConcluida" class="task-list"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="agenda" class="page-section">
-        <div class="section-card">
-          <div class="section-header">
-            <div>
-              <p class="eyebrow">v0.3</p>
-              <h2>📅 Agenda</h2>
-              <p>Cadastre compromissos e veja os próximos eventos automaticamente no Dashboard.</p>
-            </div>
-          </div>
-
-          <form id="eventForm" class="task-form">
-            <div class="form-group full">
-              <label for="eventTitle">Título do compromisso</label>
-              <input id="eventTitle" type="text" placeholder="Ex: Consulta oftalmológica" required />
-            </div>
-
-            <div class="form-group">
-              <label for="eventCategory">Categoria</label>
-              <select id="eventCategory">
-                <option>Pessoal</option>
-                <option>Saúde</option>
-                <option>Estudos</option>
-                <option>Trabalho</option>
-                <option>Financeiro</option>
-                <option>Projetos</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="eventDate">Data</label>
-              <input id="eventDate" type="date" required />
-            </div>
-
-            <div class="form-group">
-              <label for="eventTime">Hora</label>
-              <input id="eventTime" type="time" required />
-            </div>
-
-            <div class="form-group">
-              <label for="eventColor">Cor</label>
-              <select id="eventColor">
-                <option value="aqua">Aqua</option>
-                <option value="gold">Dourado</option>
-                <option value="rose">Rosa</option>
-                <option value="violet">Violeta</option>
-                <option value="green">Verde</option>
-              </select>
-            </div>
-
-            <div class="form-group full">
-              <label for="eventDescription">Descrição opcional</label>
-              <textarea id="eventDescription" rows="3" placeholder="Ex: Levar documentos, exames, materiais..."></textarea>
-            </div>
-
-            <button class="primary-btn full" type="submit">Adicionar compromisso</button>
-          </form>
-
-          <div class="task-tools">
-            <input id="eventSearch" type="search" placeholder="Pesquisar compromisso..." />
-            <select id="eventFilter">
-              <option value="todos">Todos</option>
-              <option>Pessoal</option>
-              <option>Saúde</option>
-              <option>Estudos</option>
-              <option>Trabalho</option>
-              <option>Financeiro</option>
-              <option>Projetos</option>
-            </select>
-          </div>
-
-          <div class="agenda-layout">
-            <div>
-              <h3>Próximos compromissos</h3>
-              <div id="eventList" class="event-list"></div>
-            </div>
-
-            <aside class="mini-panel">
-              <p class="card-label">Resumo</p>
-              <h3 id="eventSummaryCount">0 compromissos</h3>
-              <p id="eventSummaryNext">Nenhum próximo evento.</p>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <section id="estudos" class="page-section"><div class="section-card"><h2>📚 Estudos</h2><p>Área reservada para a v0.4.</p></div></section>
-      <section id="financeiro" class="page-section"><div class="section-card"><h2>💰 Financeiro</h2><p>Área reservada para a v0.5: salário mensal, boletos, parcelas, gastos variáveis e saldo final automático.</p></div></section>
-      <section id="diario" class="page-section"><div class="section-card"><h2>📝 Diário</h2><p>Área reservada para a v0.6.</p></div></section>
-      <section id="projetos" class="page-section"><div class="section-card"><h2>⭐ Projetos</h2><p>Área reservada para a v0.8.</p></div></section>
-      <section id="configuracoes" class="page-section"><div class="section-card"><h2>⚙️ Configurações</h2><p>Área reservada para nome, tema, backup, Firebase e preferências do Aqua Space.</p></div></section>
-    </main>
-  </div>
-
-  <script src="js/app.js"></script>
+        <p class="small">Versão local: os dados ficam salvos neste navegador. A próxima etapa pode ser Firebase para sincronizar notebook e celular.</p>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="js/app.js"></script>
 </body>
 </html>

@@ -1,31 +1,21 @@
 # Aqua Space 🩵🌊
 
-Um dashboard pessoal minimalista, produtivo e inspirado em uma estética oceânica.
+Dashboard pessoal em SPA com visual oceânico.
 
-## v0.3.0
+## v1.0 local completa
 
-Agenda Inteligente implementada.
+Inclui:
+- Dashboard integrado
+- Tarefas
+- Agenda
+- Estudos com atividades e anotações
+- Financeiro inteligente com salário fixo, boletos/parcelas e gastos variáveis
+- Diário/anotações
+- Projetos
+- Hábitos de água e exercícios
+- Pomodoro
+- Configurações
+- Backup e importação JSON
+- Salvamento local no navegador
 
-### Inclui
-
-- Tudo da v0.2
-- Cadastro de compromissos
-- Data e horário
-- Categorias
-- Cores por compromisso
-- Descrição opcional
-- Pesquisa de compromissos
-- Filtro por categoria
-- Lista de próximos eventos
-- Resumo da agenda
-- Próximo compromisso integrado ao Dashboard
-- Salvamento local via LocalStorage
-
-## Próximas versões
-
-- v0.4: Estudos
-- v0.5: Financeiro inteligente
-- v0.6: Diário
-- v0.7: Hábitos e Pomodoro avançado
-- v0.8: Projetos
-- v1.0: Firebase e sincronização entre dispositivos
+Próxima etapa sugerida: Firebase para sincronizar notebook e celular.
