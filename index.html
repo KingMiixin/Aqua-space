@@ -29,7 +29,7 @@
       </nav>
 
       <div class="sidebar-footer">
-        <p>v0.2.0</p>
+        <p>v0.3.0</p>
       </div>
     </aside>
 
@@ -61,8 +61,8 @@
 
           <article class="card">
             <p class="card-label">Próximo compromisso</p>
-            <h3>Nenhum compromisso próximo</h3>
-            <p>Sua agenda geral aparecerá aqui.</p>
+            <h3 id="dashboardNextEventTitle">Nenhum compromisso próximo</h3>
+            <p id="dashboardNextEventMeta">Sua agenda geral aparecerá aqui.</p>
           </article>
 
           <article class="card highlight">
@@ -169,25 +169,98 @@
           </div>
 
           <div class="task-board">
-            <div class="task-column">
-              <h3>Hoje</h3>
-              <div id="tasksHoje" class="task-list"></div>
-            </div>
-
-            <div class="task-column">
-              <h3>Em andamento</h3>
-              <div id="tasksAndamento" class="task-list"></div>
-            </div>
-
-            <div class="task-column">
-              <h3>Concluídas</h3>
-              <div id="tasksConcluida" class="task-list"></div>
-            </div>
+            <div class="task-column"><h3>Hoje</h3><div id="tasksHoje" class="task-list"></div></div>
+            <div class="task-column"><h3>Em andamento</h3><div id="tasksAndamento" class="task-list"></div></div>
+            <div class="task-column"><h3>Concluídas</h3><div id="tasksConcluida" class="task-list"></div></div>
           </div>
         </div>
       </section>
 
-      <section id="agenda" class="page-section"><div class="section-card"><h2>📅 Agenda</h2><p>Área reservada para a v0.3.</p></div></section>
+      <section id="agenda" class="page-section">
+        <div class="section-card">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">v0.3</p>
+              <h2>📅 Agenda</h2>
+              <p>Cadastre compromissos e veja os próximos eventos automaticamente no Dashboard.</p>
+            </div>
+          </div>
+
+          <form id="eventForm" class="task-form">
+            <div class="form-group full">
+              <label for="eventTitle">Título do compromisso</label>
+              <input id="eventTitle" type="text" placeholder="Ex: Consulta oftalmológica" required />
+            </div>
+
+            <div class="form-group">
+              <label for="eventCategory">Categoria</label>
+              <select id="eventCategory">
+                <option>Pessoal</option>
+                <option>Saúde</option>
+                <option>Estudos</option>
+                <option>Trabalho</option>
+                <option>Financeiro</option>
+                <option>Projetos</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="eventDate">Data</label>
+              <input id="eventDate" type="date" required />
+            </div>
+
+            <div class="form-group">
+              <label for="eventTime">Hora</label>
+              <input id="eventTime" type="time" required />
+            </div>
+
+            <div class="form-group">
+              <label for="eventColor">Cor</label>
+              <select id="eventColor">
+                <option value="aqua">Aqua</option>
+                <option value="gold">Dourado</option>
+                <option value="rose">Rosa</option>
+                <option value="violet">Violeta</option>
+                <option value="green">Verde</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label for="eventDescription">Descrição opcional</label>
+              <textarea id="eventDescription" rows="3" placeholder="Ex: Levar documentos, exames, materiais..."></textarea>
+            </div>
+
+            <button class="primary-btn full" type="submit">Adicionar compromisso</button>
+          </form>
+
+          <div class="task-tools">
+            <input id="eventSearch" type="search" placeholder="Pesquisar compromisso..." />
+            <select id="eventFilter">
+              <option value="todos">Todos</option>
+              <option>Pessoal</option>
+              <option>Saúde</option>
+              <option>Estudos</option>
+              <option>Trabalho</option>
+              <option>Financeiro</option>
+              <option>Projetos</option>
+            </select>
+          </div>
+
+          <div class="agenda-layout">
+            <div>
+              <h3>Próximos compromissos</h3>
+              <div id="eventList" class="event-list"></div>
+            </div>
+
+            <aside class="mini-panel">
+              <p class="card-label">Resumo</p>
+              <h3 id="eventSummaryCount">0 compromissos</h3>
+              <p id="eventSummaryNext">Nenhum próximo evento.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
       <section id="estudos" class="page-section"><div class="section-card"><h2>📚 Estudos</h2><p>Área reservada para a v0.4.</p></div></section>
       <section id="financeiro" class="page-section"><div class="section-card"><h2>💰 Financeiro</h2><p>Área reservada para a v0.5: salário mensal, boletos, parcelas, gastos variáveis e saldo final automático.</p></div></section>
       <section id="diario" class="page-section"><div class="section-card"><h2>📝 Diário</h2><p>Área reservada para a v0.6.</p></div></section>

@@ -2,33 +2,27 @@
 
 Um dashboard pessoal minimalista, produtivo e inspirado em uma estética oceânica.
 
-## v0.2.0
+## v0.3.0
 
-Sistema de tarefas implementado.
+Agenda Inteligente implementada.
 
 ### Inclui
 
-- Menu lateral estilo Notion
-- Layout SPA
-- Dashboard inicial
-- Hábitos básicos: água e exercícios
-- Pomodoro simples
-- Sistema de tarefas com:
-  - Hoje
-  - Em andamento
-  - Concluídas
-  - Categoria
-  - Prioridade
-  - Data
-  - Descrição
-  - Pesquisa
-  - Filtro por status
-  - Integração com o Dashboard
+- Tudo da v0.2
+- Cadastro de compromissos
+- Data e horário
+- Categorias
+- Cores por compromisso
+- Descrição opcional
+- Pesquisa de compromissos
+- Filtro por categoria
+- Lista de próximos eventos
+- Resumo da agenda
+- Próximo compromisso integrado ao Dashboard
 - Salvamento local via LocalStorage
 
 ## Próximas versões
 
-- v0.3: Agenda
 - v0.4: Estudos
 - v0.5: Financeiro inteligente
 - v0.6: Diário

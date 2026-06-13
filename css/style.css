@@ -110,13 +110,7 @@ label {
 
 .content { flex: 1; padding: 26px; overflow: hidden; }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 22px;
-}
-
+.topbar { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
 .topbar h2 { margin: 0; font-size: 1.8rem; }
 
 .menu-toggle {
@@ -133,7 +127,7 @@ label {
 .page-section { display: none; animation: rise 0.28s ease; }
 .page-section.active { display: block; }
 
-.hero-card, .card, .section-card {
+.hero-card, .card, .section-card, .mini-panel {
   border: 1px solid var(--border);
   background: var(--glass);
   backdrop-filter: blur(18px);
@@ -169,10 +163,7 @@ label {
   color: var(--ocean) !important;
 }
 
-.hero-card h2 {
-  margin: 8px 0;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-}
+.hero-card h2 { margin: 8px 0; font-size: clamp(2rem, 5vw, 3.4rem); }
 
 .hero-bubble {
   width: 86px;
@@ -192,7 +183,7 @@ label {
   gap: 18px;
 }
 
-.card, .section-card { padding: 22px; }
+.card, .section-card, .mini-panel { padding: 22px; }
 .card h3 { margin: 10px 0 8px; font-size: 1.45rem; }
 .highlight { border-color: rgba(240, 214, 138, 0.75); }
 
@@ -211,9 +202,7 @@ label {
 }
 
 .ghost-btn { background: rgba(255, 255, 255, 0.68); color: var(--text); }
-
 .danger-btn { background: rgba(255, 111, 111, 0.12); color: #a13b3b; }
-
 .primary-btn:hover, .ghost-btn:hover, .danger-btn:hover { transform: translateY(-2px); }
 
 .button-row { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -229,9 +218,7 @@ label {
   margin-top: 18px;
 }
 
-.form-group.full, .task-form .full {
-  grid-column: 1 / -1;
-}
+.form-group.full, .task-form .full { grid-column: 1 / -1; }
 
 .task-tools {
   display: grid;
@@ -240,10 +227,15 @@ label {
   margin: 22px 0;
 }
 
-.task-board {
+.task-board, .agenda-layout {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+}
+
+.agenda-layout {
+  grid-template-columns: 1fr 280px;
+  align-items: start;
 }
 
 .task-column {
@@ -254,43 +246,45 @@ label {
   min-height: 220px;
 }
 
-.task-column h3 {
-  margin: 0 0 14px;
-}
+.task-column h3, .agenda-layout h3 { margin: 0 0 14px; }
+.task-list, .event-list { display: grid; gap: 12px; }
 
-.task-list {
-  display: grid;
-  gap: 12px;
-}
-
-.task-item {
+.task-item, .event-item {
   background: rgba(255,255,255,0.78);
   border: 1px solid rgba(29, 143, 163, 0.14);
   border-radius: 20px;
   padding: 14px;
   box-shadow: 0 12px 30px rgba(25, 52, 77, 0.08);
+  position: relative;
+  overflow: hidden;
 }
 
-.task-item.done {
-  opacity: 0.72;
+.event-item::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  background: var(--aqua);
 }
 
-.task-item.done .task-title {
-  text-decoration: line-through;
-}
+.event-item.color-gold::before { background: var(--gold); }
+.event-item.color-rose::before { background: #f6a6b8; }
+.event-item.color-violet::before { background: #b5a7ff; }
+.event-item.color-green::before { background: #77d69e; }
+.event-item.color-aqua::before { background: var(--aqua); }
 
-.task-title {
-  margin: 0 0 8px;
-  font-weight: 800;
-}
+.task-item.done { opacity: 0.72; }
+.task-item.done .task-title { text-decoration: line-through; }
 
-.task-description {
+.task-title, .event-title { margin: 0 0 8px; font-weight: 800; }
+
+.task-description, .event-description {
   margin: 8px 0;
   color: var(--muted);
   font-size: 0.92rem;
 }
 
-.task-meta {
+.task-meta, .event-meta {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -312,7 +306,7 @@ label {
 .badge.priority-media { background: rgba(240, 214, 138, 0.28); color: #8f721f; }
 .badge.priority-baixa { background: rgba(83, 198, 182, 0.16); color: #1b7b71; }
 
-.task-actions {
+.task-actions, .event-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -332,20 +326,18 @@ label {
 }
 
 @media (max-width: 1100px) {
-  .grid, .task-board { grid-template-columns: 1fr; }
+  .grid, .task-board, .agenda-layout { grid-template-columns: 1fr; }
   .task-form { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 980px) {
   .app-shell { display: block; }
-
   .sidebar {
     position: fixed;
     z-index: 20;
     transform: translateX(-105%);
     transition: 0.24s ease;
   }
-
   .sidebar.open { transform: translateX(0); }
   .menu-toggle { display: block; }
   .content { padding: 18px; }
